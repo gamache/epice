@@ -1,6 +1,11 @@
 # Epice
 
-TODO: Write a gem description
+Epice is a minimal wrapper around the SPICE circuit emulation software,
+allowing Ruby to pass SPICE a netlist containing a .PRINT statement,
+and collect the resulting data.
+
+Output can be obtained as an array of data row arrays, or as an array
+of data row hashes in which each value is keyed by its field name.
 
 ## Installation
 
@@ -18,12 +23,29 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    c = Epice::Circuit.new
 
-## Contributing
+    ## Set the SPICE command to run.  The netlist will be sent on STDIN.
+    # c.spice_cmd = 'ngspice -b'  ## default
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+    c.netlist = <<-EOT
+    ... your netlist, containing a single .PRINT statement, goes here ...
+    EOT
+
+    output = c.run
+    # => Epice::Output, array of data row arrays
+
+    output.to_hashes
+    # => array of data row hashes, keyed by field name
+
+## Bugs
+
+Not possible, I use RSpec.
+
+Just kidding.  Probably lots.
+
+## Blame
+
+Copyright 2012, pete gamache, pete@gamache.org.
+
+This software is released under the MIT License.

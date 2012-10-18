@@ -1,5 +1,6 @@
-require "epice/version"
+Dir[File.dirname(__FILE__) + '/epice/*.rb'].each {|m| require m}
 
 module Epice
-  # Your code goes here...
+  class RuntimeError < ::RuntimeError; end
 end
+
